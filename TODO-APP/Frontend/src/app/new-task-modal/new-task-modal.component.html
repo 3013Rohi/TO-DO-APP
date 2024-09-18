@@ -1,0 +1,50 @@
+<div class="modal-container">
+    <h2>New Task</h2>
+    <form #taskForm="ngForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Assigned To *</mat-label>
+        <mat-select required [(ngModel)]="task.assignedTo" name="assignedTo">
+          <mat-option value="User 1">User 1</mat-option>
+          <mat-option value="User 2">User 2</mat-option>
+          <mat-option value="User 3">User 3</mat-option>
+          <mat-option value="User 4">User 4</mat-option>
+          <mat-option value="User 5">User 5</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Status *</mat-label>
+        <mat-select required [(ngModel)]="task.status" name="status">
+          <mat-option value="Not Started">Not Started</mat-option>
+          <mat-option value="In Progress">In Progress</mat-option>
+          <mat-option value="Completed">Completed</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Due Date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="task.dueDate" name="dueDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Priority *</mat-label>
+        <mat-select required [(ngModel)]="task.priority" name="priority">
+          <mat-option value="High">High</mat-option>
+          <mat-option value="Normal">Normal</mat-option>
+          <mat-option value="Low">Low</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput [(ngModel)]="task.description" name="description"></textarea>
+      </mat-form-field>
+  
+      <div class="button-group">
+        <button mat-button class="cancel-button" (click)="cancel()">Cancel</button>
+        <button mat-flat-button color="primary" class="save-button" (click)="save()" [disabled]="!taskForm.valid">Save</button>
+      </div>
+    </form>
+  </div>

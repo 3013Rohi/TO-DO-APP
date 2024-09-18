@@ -1,0 +1,70 @@
+<div class="task-header">
+  <div class="task-header-left">
+    <div class="task-title">
+      <mat-icon class="task-icon">assignment</mat-icon>
+      <div class="task-title-text">
+        <h1>Tasks</h1>
+        <span class="subheading">All Tasks</span>
+      </div>
+    </div>
+    <span>{{ tasks.length }} records</span> <!-- Bind the length of the tasks array here -->
+  </div>
+  <div class="task-header-right">
+    <button class="new-task-button" (click)="openNewTask()">New Task</button>
+    <button class="refresh-button">Refresh</button>
+    <input type="text" placeholder="Search" class="search-input">
+  </div>
+</div>
+
+<table class="task-table">
+  <thead>
+    <tr>
+      <th><input type="checkbox"></th>
+      <th>Assigned To</th>
+      <th>Position</th>
+      <th>Last Date</th>
+      <th>Priority</th>
+      <th>Remark</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of paginatedTasks">
+      <td><input type="checkbox"></td>
+      <td><a href="#">{{ task.assignedTo }}</a></td>
+      <td>{{ task.status }}</td>
+      <td>{{ task.dueDate | date:'dd/MM/yyyy' }}</td> <!-- Format the date here -->
+      <td>{{ task.priority }}</td>
+      <td>{{ task.description }}</td>
+      <td>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="editTask(task)">Edit</button>
+          <button mat-menu-item (click)="deleteTask(task)">Delete</button>
+        </mat-menu>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="pagination">
+  <div class="records-per-page">
+    <input id="recordsPerPage" type="number" [(ngModel)]="recordsPerPage" (change)="updatePagination()" min="1"
+      max="100">
+    <div class="arrow-buttons">
+      <button mat-icon-button (click)="increaseRecordsPerPage()">
+        <mat-icon>arrow_drop_up</mat-icon>
+      </button>
+      <button mat-icon-button (click)="decreaseRecordsPerPage()">
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+    </div>
+  </div>
+  <button (click)="goToFirstPage()">First</button>
+  <button (click)="goToPrevPage()">Prev</button>
+  <span>{{ currentPage }}</span>
+  <button (click)="goToNextPage()">Next</button>
+  <button (click)="goToLastPage()">Last</button>
+</div>
